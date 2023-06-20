@@ -34,5 +34,6 @@ func UseJWT() gin.HandlerFunc {
 			Username:  mapclaims["username"].(string),
 			Role:      mapclaims["role"].(string),
 		})
+		ctx.Next()
 	}
 }
