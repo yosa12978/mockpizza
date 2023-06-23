@@ -2,9 +2,11 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"sync"
 
+	"github.com/yosa12978/mockPizza/internal/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -24,6 +26,7 @@ func GetDB() *gorm.DB {
 			os.Getenv("DB_NAME"),
 			os.Getenv("DB_PORT"),
 		)
+		log.Println(dsn)
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 		if err != nil {
 			panic(err)
@@ -34,5 +37,7 @@ func GetDB() *gorm.DB {
 }
 
 func migrate() {
-
+	db.AutoMigrate(&domain.Pizza{})
+	db.AutoMigrate(&domain.Usr{})
+	db.AutoMigrate(&domain.Order{})
 }

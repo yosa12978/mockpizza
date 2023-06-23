@@ -6,7 +6,7 @@ import (
 )
 
 type PizzaRepo interface {
-	Create(pizza domain.Pizza) error
+	Create(pizza domain.Pizza) (domain.Pizza, error)
 	FindAll() []domain.Pizza
 	FindById(id uint) (domain.Pizza, error)
 	Update(pizza domain.Pizza) (domain.Pizza, error)
@@ -21,8 +21,8 @@ func NewPizzaRepo(db *gorm.DB) PizzaRepo {
 	return &pizzaRepo{db: db}
 }
 
-func (repo *pizzaRepo) Create(pizza domain.Pizza) error {
-	return repo.db.Create(pizza).Error
+func (repo *pizzaRepo) Create(pizza domain.Pizza) (domain.Pizza, error) {
+	return pizza, repo.db.Create(&pizza).Error
 }
 
 func (repo *pizzaRepo) FindAll() []domain.Pizza {

@@ -124,3 +124,12 @@ Example:
   "created_at": "2023-06-19T18:15:04+03:00"
 }
 ```
+
+### Errors
+
+Error example
+```json
+{
+  "message": "error message"
+}
+```
